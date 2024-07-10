@@ -4,5 +4,6 @@ import type { ObjectId } from "mongodb";
 export interface Movie {
   _id?: ObjectId,
   title: string,
+  actors: string[],
   year?: number,
 }

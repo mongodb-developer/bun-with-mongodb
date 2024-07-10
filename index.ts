@@ -5,15 +5,14 @@ import type { Movie } from "./models/movies.ts";
 
 const server = Bun.serve({
   async fetch(req) {
-    const movies = new MovieController();
-
     const url = new URL(req.url);
     const method = req.method;
     if (url.pathname === "/") return new Response("Welcome to the movie database");
 
-    let moviesRoutes = new RegExp(/^\/movies\/(.*)/);
-
     // Routes for the API
+    let moviesRoutes = new RegExp(/^\/movies\/?(.*)/);
+    const movies = new MovieController();
+
     // POST /movies
     if (url.pathname.match(moviesRoutes) && method === "POST") {
       const movie: Movie = await req.json();
